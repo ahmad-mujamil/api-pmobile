@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\GetLppByNomorRequest;
-use App\Http\Requests\GetLppRequest;
 use App\Http\Requests\GetUserRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Resources\LppResource;
@@ -24,7 +22,7 @@ class ApiController extends Controller
     public function index () {
 
         return response()->json([
-            "name" => "Api Endpoint Pemerograman Mobile",
+            "name" => "Api Endpoint Pemerograman Mobile 2",
             "version" => "v1"
         ]);
     }
