@@ -31,7 +31,7 @@ class CreateUser extends Command
             ->first();
 
         if(!is_null($user)){
-            $this->error('Email user sudah terdaftar !');
+            $this->error('user sudah terdaftar !');
         }else{
             $user = User::query()->create([
                     "nim" => $nim,
