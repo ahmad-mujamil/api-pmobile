@@ -20,24 +20,30 @@ class CreateUser extends Command
     public function handle()
     {
 
-        $name = $this->ask('Username ');
-        $email = $this->ask('Email User ');
+        $nim = $this->ask('nim ');
+        $nama = $this->ask('nama ');
         $password = $this->ask('Password ');
+        $alamat = $this->ask('Alamat ');
+        $tgl_lahir = $this->ask('Tanggal Lahir (yyyy-mm-dd) ');
+        $jurusan = $this->ask('Jurusan ');
         $user = User::query()
-            ->where('email',$email)
+            ->where('nim',$nim)
             ->first();
 
         if(!is_null($user)){
             $this->error('Email user sudah terdaftar !');
         }else{
             $user = User::query()->create([
-                    "name" => $name,
-                    "email" => $email,
+                    "nim" => $nim,
+                    "nama" => $nama,
                     "password" => bcrypt($password),
+                    "alamat" => $alamat,
+                    "tgl_lahir" => $tgl_lahir,
+                    "jurusan" => $jurusan,
                 ]);
 
             if($this->option('token')){
-                $token = $user->createToken($email)->plainTextToken;
+                $token = $user->createToken($nim)->plainTextToken;
                 $this->info('token : '.$token);
             }else{
                 $this->info('User Created successfully');

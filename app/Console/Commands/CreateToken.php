@@ -12,7 +12,7 @@ class CreateToken extends Command
      *
      * @var string
      */
-    protected $signature = 'api:create-token {email_user?}';
+    protected $signature = 'api:create-token {nim_user?}';
 
     /**
      * Execute the console command.
@@ -20,17 +20,17 @@ class CreateToken extends Command
     public function handle()
     {
 
-        $email = $this->argument('email_user');
-        if(is_null($email))
-            $email = $this->ask('Email User ');
+        $nim = $this->argument('nim_user');
+        if(is_null($nim))
+            $nim = $this->ask('NIM User ');
 
         $user = User::query()
-            ->where('email',$email)
+            ->where('nim',$nim)
             ->first();
         if(is_null($user)){
             $this->error('User tidak ditemukan !');
         }else{
-            $token = $user->createToken($email)->plainTextToken;
+            $token = $user->createToken($nim)->plainTextToken;
             $this->info('token : '.$token);
         }
 
