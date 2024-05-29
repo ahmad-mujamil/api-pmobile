@@ -26,6 +26,7 @@ class CreateUser extends Command
         $alamat = $this->ask('Alamat ');
         $tgl_lahir = $this->ask('Tanggal Lahir (yyyy-mm-dd) ');
         $jurusan = $this->ask('Jurusan ');
+        $email = $this->ask('Email ');
         $user = User::query()
             ->where('nim',$nim)
             ->first();
@@ -40,6 +41,7 @@ class CreateUser extends Command
                     "alamat" => $alamat,
                     "tgl_lahir" => $tgl_lahir,
                     "jurusan" => $jurusan,
+                    "email" => $email
                 ]);
 
             if($this->option('token')){

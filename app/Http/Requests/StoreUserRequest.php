@@ -37,7 +37,6 @@ class StoreUserRequest extends FormRequest
             "alamat.required" => "Alamat tidak boleh kosong",
             "tgl_lahir.required" => "Tanggal lahir tidak boleh kosong",
             "jurusan.required" => "Jurusan tidak boleh kosong",
-            "email.required" => "Email tidak boleh kosong",
 
         ];
     }

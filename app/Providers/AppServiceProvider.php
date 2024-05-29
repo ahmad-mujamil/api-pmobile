@@ -12,9 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        Gate::define('viewApiDocs', function () {
-            return true;
-        });
+
     }
 
     /**
@@ -22,5 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('viewApiDocs', fn () => true);
+//        Gate::allows('viewApiDocs');
     }
 }
