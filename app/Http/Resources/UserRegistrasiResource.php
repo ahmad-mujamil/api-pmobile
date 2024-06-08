@@ -21,7 +21,6 @@ class UserRegistrasiResource extends JsonResource
             "jurusan" => $this->jurusan,
             "email" => $this->email,
             "token" => $token,
-
         ];
     }
 }

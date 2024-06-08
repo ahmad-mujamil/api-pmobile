@@ -31,7 +31,7 @@ class ApiController extends Controller
     public function getAllUser(Request $request)
     {
         $users = User::all();
-        return UserResource::make($users);
+        return UserResource::collection($users);
     }
 
 

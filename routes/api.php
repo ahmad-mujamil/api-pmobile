@@ -29,7 +29,7 @@ Route::group(["prefix" => "v1", "as"=>"v1."],function() {
         Route::get('get-user',[ApiController::class,'getAllUser'])
             ->name('get-user');
 
-        Route::get('get-user-by-nim',[ApiController::class,'getUserByNim'])
+        Route::post('get-user-by-nim',[ApiController::class,'getUserByNim'])
             ->name('get-user-by-nim');
 
         Route::put('update-profile/{id}',[ApiController::class,'updateProfile'])

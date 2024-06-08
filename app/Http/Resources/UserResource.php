@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Cache;
 class UserResource extends JsonResource
 {
 
+    public static $wrap = null;
     public function toArray(Request $request): array
     {
         return [
+            "id" => $this->id,
             "nim" => $this->nim,
             "nama" => $this->nama,
             "alamat" => $this->alamat,
@@ -22,7 +24,7 @@ class UserResource extends JsonResource
             "jurusan" => $this->jurusan,
             "email" => $this->email,
             "foto" => !is_null($this->foto) ? asset('foto/'.$this->foto) : null,
-
+            'token' => $this->createToken($this->nim)->plainTextToken
         ];
     }
 }

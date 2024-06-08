@@ -27,6 +27,13 @@ class RegistrasiUserRequest extends FormRequest
         ];
     }
 
+    protected function prepareForValidation()
+    {
+        return $this->merge([
+            'password' => bcrypt($this->password),
+        ]);
+    }
+
     public function messages()
     {
         return [
@@ -36,6 +43,8 @@ class RegistrasiUserRequest extends FormRequest
             "email.required" => "Email tidak boleh kosong",
         ];
     }
+
+
 
     protected function failedValidation(Validator $validator)
     {
