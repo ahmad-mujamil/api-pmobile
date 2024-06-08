@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 
 class ApiController extends Controller
@@ -41,6 +42,23 @@ class ApiController extends Controller
             ->first();
         if(is_null($user))
             return $this->userNotFound();
+
+        if(is_null($request->nim))
+            return $this->invalid();
+
+        return UserResource::make($user);
+    }
+
+    public function login(GetUserRequest $request)
+    {
+        $user = User::query()
+            ->where('nim',$request->nim)
+            ->first();
+        if(is_null($user))
+            return $this->userNotFound();
+
+        if(!Hash::check($request->password,$user->password))
+            return $this->invalid("Password Salah",401);
 
         if(is_null($request->nim))
             return $this->invalid();

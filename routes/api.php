@@ -17,8 +17,12 @@ use App\Http\Controllers\Api\V1\ApiController;
 
 Route::group(["prefix" => "v1", "as"=>"v1."],function() {
     Route::get('/', [ApiController::class, 'index'])->name('index');
+
     Route::post('/registrasi',[ApiController::class,'registrasi'])
         ->name('registrasi');
+
+    Route::post('/login',[ApiController::class,'login'])
+        ->name('login');
 
     Route::middleware(['auth:sanctum'])->group(function(){
 
@@ -28,11 +32,8 @@ Route::group(["prefix" => "v1", "as"=>"v1."],function() {
         Route::get('get-user-by-nim',[ApiController::class,'getUserByNim'])
             ->name('get-user-by-nim');
 
-        Route::post('update-profile/{id}',[ApiController::class,'updateProfile'])
+        Route::put('update-profile/{id}',[ApiController::class,'updateProfile'])
             ->name('update-profile');
-
-
-
 
     });
 });
