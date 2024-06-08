@@ -81,7 +81,7 @@ class ApiController extends Controller
     }
 
 
-    public function updateProfile(UpdateProfileUserRequest $request, User $user)
+    public function updateProfile(UpdateProfileUserRequest $request,User  $user)
     {
         try {
             DB::beginTransaction();
