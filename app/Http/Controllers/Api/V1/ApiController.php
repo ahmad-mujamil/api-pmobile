@@ -8,6 +8,7 @@ use App\Http\Requests\RegistrasiUserRequest;
 use App\Http\Requests\UpdateProfileUserRequest;
 use App\Http\Resources\UserRegistrasiResource;
 use App\Http\Resources\UserResource;
+use App\Http\Resources\UserUpdateResource;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -87,12 +88,12 @@ class ApiController extends Controller
             $user->update(Arr::except($request->validated(),'foto'));
             if($request->hasFile('foto')){
                 $foto = $request->file('foto');
-                $foto->storeAs('public/foto',$user->nim.'.'.$foto->extension());
-                $user->foto = $user->nim.'.'.$foto->extension();
-                $user->save();
+                $filename = $user->nim.'.'.$foto->extension();
+                $foto->storeAs('public/foto',$filename);
+                $user->update(["foto" => $filename]) ;
             }
             DB::commit();
-            return UserResource::make($user);
+            return UserUpdateResource::make($user);
         }catch (\Exception $e){
             return $this->invalid($e->getMessage());
         }
