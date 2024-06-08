@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GetUserRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Resources\LppResource;
+use App\Http\Requests\RegistrasiUserRequest;
+use App\Http\Requests\UpdateProfileUserRequest;
+use App\Http\Resources\UserRegistrasiResource;
 use App\Http\Resources\UserResource;
 use App\Models\User;
-use App\Services\LogPaymentServices;
-use App\Services\RekeningServices;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
@@ -48,16 +48,34 @@ class ApiController extends Controller
         return UserResource::make($user);
     }
 
-
-    public function storeUser(StoreUserRequest $request)
+    public function registrasi(RegistrasiUserRequest $request)
     {
         try {
-            DB::transaction();
+            DB::beginTransaction();
             $user = User::query()->create($request->validated());
+            DB::commit();
+            return UserRegistrasiResource::make($user);
+        }catch (\Exception $e){
+            return $this->invalid($e->getMessage());
+        }
+
+    }
+
+
+    public function updateProfile(UpdateProfileUserRequest $request, User $user)
+    {
+        try {
+            DB::beginTransaction();
+            $user->update(Arr::except($request->validated(),'foto'));
+            if($request->hasFile('foto')){
+                $foto = $request->file('foto');
+                $foto->storeAs('public/foto',$user->nim.'.'.$foto->extension());
+                $user->foto = $user->nim.'.'.$foto->extension();
+                $user->save();
+            }
             DB::commit();
             return UserResource::make($user);
         }catch (\Exception $e){
-            LogPaymentServices::createLog($request,"error",$e->getMessage());
             return $this->invalid($e->getMessage());
         }
 

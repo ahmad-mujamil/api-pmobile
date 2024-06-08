@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('nim',20)->unique();
             $table->string('nama');
-            $table->string('alamat');
-            $table->date('tgl_lahir');
-            $table->string('jurusan');
+            $table->string('alamat')->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->string('jurusan')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->text('foto')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

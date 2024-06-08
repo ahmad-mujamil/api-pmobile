@@ -2,26 +2,25 @@
 
 namespace App\Http\Resources;
 
-use App\Services\RekeningServices;
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 
-class UserResource extends JsonResource
+class UserRegistrasiResource extends JsonResource
 {
 
     public function toArray(Request $request): array
     {
+        $token = $this->createToken($this->nim)->plainTextToken;
+
         return [
             "nim" => $this->nim,
             "nama" => $this->nama,
-            "alamat" => $this->alamat,
-            "tgl_lahir" => $this->tgl_lahir,
             "jurusan" => $this->jurusan,
             "email" => $this->email,
-            "foto" => !is_null($this->foto) ? asset('foto/'.$this->foto) : null,
+            "token" => $token,
 
         ];
     }
