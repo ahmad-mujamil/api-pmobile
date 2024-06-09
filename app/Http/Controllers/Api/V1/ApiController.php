@@ -10,10 +10,7 @@ use App\Http\Resources\UserRegistrasiResource;
 use App\Http\Resources\UserResource;
 use App\Http\Resources\UserUpdateResource;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -80,8 +77,9 @@ class ApiController extends Controller
 
     }
 
-    public function updateProfile(Request $request,User  $user)
+    public function updateProfile(Request $request, User  $user)
     {
+        // return $request;
         try {
             DB::beginTransaction();
             $user->update([
