@@ -80,12 +80,17 @@ class ApiController extends Controller
 
     }
 
-
-    public function updateProfile(UpdateProfileUserRequest $request,User  $user)
+    public function updateProfile(Request $request,User  $user)
     {
         try {
             DB::beginTransaction();
-            $user->update(Arr::except($request->validated(),'foto'));
+            $user->update([
+                "nim" => $request->nim,
+                "nama" => $request->nama,
+                "alamat" => $request->alamat,
+                "tgl_lahir" => $request->tgl_lahir,
+                "jurusan" => $request->jurusan,
+                "email" => $request->email,]);
             if($request->hasFile('foto')){
                 $foto = $request->file('foto');
                 $filename = $user->nim.'.'.$foto->extension();
