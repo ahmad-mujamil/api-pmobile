@@ -23,7 +23,7 @@ class UserUpdateResource extends JsonResource
             "tgl_lahir" => $this->tgl_lahir,
             "jurusan" => $this->jurusan,
             "email" => $this->email,
-            "foto" => !is_null($this->foto) ? asset('foto/'.$this->foto) : null,
+            "foto" => !is_null($this->foto) ? asset('storage/foto/'.$this->foto) : null,
         ];
     }
 }

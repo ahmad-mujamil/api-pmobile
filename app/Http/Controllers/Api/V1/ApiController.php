@@ -88,7 +88,7 @@ class ApiController extends Controller
                 "alamat" => $request->alamat,
                 "tgl_lahir" => $request->tgl_lahir,
                 "jurusan" => $request->jurusan,
-                "email" => $request->email,]);
+                "email" => $request->email]);
             if($request->hasFile('foto')){
                 $foto = $request->file('foto');
                 $filename = $user->nim.'.'.$foto->extension();
